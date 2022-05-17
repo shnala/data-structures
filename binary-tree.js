@@ -56,7 +56,9 @@ class BST {
                 }
             }
             // end of recursive function. 
+
             //TODO: if there is no return here, the tree will not be updated. Why?
+            //ANSWER: the recursive function must be CALLED before it it will actually run. Removing 'return' however seems to make no difference.
             return searchTree(node);
         }
 
@@ -66,5 +68,5 @@ class BST {
 const newTree = new BST;
 newTree.add(100);
 newTree.add(99);
-// newTree.add(98)
+newTree.add(98)
 console.log(newTree);
