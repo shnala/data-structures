@@ -53,6 +53,16 @@ class BST {
                         // console.log(searchTree(node.left))
                         return searchTree(node.left);
                     }
+                } else if (data > node.val) {
+                    if (node.right === null) {
+                        node.right = new Node(data);
+                        return;
+                    } else if (node.right !== null) {
+                        return searchTree(node.right)
+                    }
+                } else {
+                    // this will trigger when data === node.val, therefore no insertion can be made
+                    return null;
                 }
             }
             // end of recursive function. 
@@ -91,14 +101,29 @@ class BST {
         }
         return current.data;
       }
+
+    findMinNode(node) {
+        if (node.left === null) {
+            return node;
+        } else { 
+            this.findMinNode(node.left);
+        }
+    }
 }
 
 const newTree = new BST;
-newTree.add(100);
-newTree.add(99);
+newTree.add(95);
 newTree.add(98);
+newTree.add(99);
+newTree.add(97);
+newTree.add(2);
 newTree.add(1);
-console.log(newTree.minValue());
-console.log(newTree.findMin());
+newTree.add(3);
+newTree.add(5);
+// console.log(newTree.minValue());
+// console.log(newTree.findMin());
 // both return undefined?
-console.log(newTree.root);
+
+console.log(newTree.findMinNode(newTree.root.left));
+
+// console.log(newTree.root);
