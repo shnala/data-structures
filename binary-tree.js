@@ -7,7 +7,7 @@
 class Node {
     // initialize the node's left and right values with 'null', since every new node will be at the end (bottom) of the binary tree. 'Data' will become the 'val' property of the node
     constructor(data, left = null, right = null) {
-        this.val = data;
+        this.data = data;
         this.left = left;
         this.right = right;
     };
@@ -38,7 +38,7 @@ class BST {
             // recursive function to search the tree for the proper insert location
             const searchTree = function(node) {
                 //TODO: Mind the structure of 'node' at this level.
-                if (data < node.val) {
+                if (data < node.data) {
                     // if the child is smaller in value than the parent, then it goes on the left side of the tree, per binary tree structure.
                     if (node.left === null) {
                         // if the left position of the parent node is available, then we can add our new Node(data) here.
@@ -53,7 +53,7 @@ class BST {
                         // console.log(searchTree(node.left))
                         return searchTree(node.left);
                     }
-                } else if (data > node.val) {
+                } else if (data > node.data) {
                     if (node.right === null) {
                         node.right = new Node(data);
                         return;
@@ -124,6 +124,6 @@ newTree.add(5);
 // console.log(newTree.findMin());
 // both return undefined?
 
-console.log(newTree.findMinNode(newTree.root.left));
+console.log(newTree.findMinNode(this.root));
 
 // console.log(newTree.root);
