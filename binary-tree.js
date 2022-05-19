@@ -69,15 +69,13 @@ class BST {
 
             //TODO: if there is no return here, the tree will not be updated. Why?
             //ANSWER: the recursive function must be CALLED before it it will actually run. Removing 'return' however seems to make no difference.
-            return searchTree(node);
+             searchTree(node);
         }
 
     }
 
-    // method for finding the minimum value of the binary tree
+    // 'while' loop method for finding the minimum value of the binary tree
     // this value can be retrieved by going to the furthest left end of the tree, since every left-child node will be smaller in value than the parent node. i.e., once node.left === null, then node.val === minValue
-    // it doesn't work even though it's literally the same as the copied example
-
     minValue() {
         // retrieve the currently established data by initializing var 'node' to be the root of the tree
         // NOTE: node cannot be 'const' here b/c its value will be constantly edited via the while loop
@@ -94,36 +92,59 @@ class BST {
         // }
     }
 
-    findMin() {
+    // while loop method for obtaining the maximum value of the tree
+    maxValue() {
         let current = this.root;
-        while (current.left !== null) {
-          current = current.left;
-        }
-        return current.data;
-      }
+        // console.log(current);
+        while (current.right !== null) {
+            current = current.right;
+        };
 
+        return current.data;
+    }
+    
+    // NOTE: IT DIDN'T WORK BECAUSE YOU DIDN'T PUT 'RETURN' IN THE ELSE STATEMENT. 
+    // TODO: Why was 'return' seemingly irrelevant in the add() method, but important for functionality here? Removing 'return' from the call to the recursive function in add() made no impact on the result, however in this instance, removing 'return' caused this helper method to not work at all, instead returning 'undefined'
     findMinNode(node) {
         if (node.left === null) {
-            return node;
+            return node.data;
         } else { 
-            this.findMinNode(node.left);
+            return this.findMinNode(node.left);
         }
+    }
+
+    findMaxNode(node) {
+        if (node.right === null) {
+            return node.data;
+        } else {
+            return this.findMaxNode(node.right);
+        };
     }
 }
 
 const newTree = new BST;
-newTree.add(95);
-newTree.add(98);
-newTree.add(99);
-newTree.add(97);
-newTree.add(2);
-newTree.add(1);
-newTree.add(3);
+newTree.add(15);
+newTree.add(25);
+newTree.add(10);
+newTree.add(7);
+newTree.add(22);
+newTree.add(17);
+newTree.add(13);
 newTree.add(5);
+newTree.add(9);
+newTree.add(27);
+//          15
+//         /  \
+//        10   25
+//       / \   / \
+//      7  13 22  27
+//     / \    /
+//    5   9  17
 // console.log(newTree.minValue());
 // console.log(newTree.findMin());
-// both return undefined?
+console.log(newTree.maxValue());
 
-console.log(newTree.findMinNode(this.root));
+// console.log(newTree.findMinNode(newTree.root));
+// console.log(newTree.findMaxNode(newTree.root));
 
 // console.log(newTree.root);
