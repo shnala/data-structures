@@ -43,14 +43,14 @@ class BST {
                     if (node.left === null) {
                         // if the left position of the parent node is available, then we can add our new Node(data) here.
                         // Always remember to BREAK/RETURN so that the function ends
-                        console.log('Trigger 1');
+                        // console.log('Trigger 1');
                         node.left = new Node(data);
                         return;
                     } else if (node.left !== null) {
                         // if the left position of the parent node is taken by a child node, then we must move further down the left side of the binary tree. We can perform this operation recursively:
                         // TODO: why do we put 'return' before searchTree? Removing 'return' seems to make no difference.
-                        console.log('Trigger 2');
-                        console.log(searchTree(node.left))
+                        // console.log('Trigger 2');
+                        // console.log(searchTree(node.left))
                         return searchTree(node.left);
                     }
                 }
@@ -63,10 +63,42 @@ class BST {
         }
 
     }
+
+    // method for finding the minimum value of the binary tree
+    // this value can be retrieved by going to the furthest left end of the tree, since every left-child node will be smaller in value than the parent node. i.e., once node.left === null, then node.val === minValue
+    // it doesn't work even though it's literally the same as the copied example
+
+    minValue() {
+        // retrieve the currently established data by initializing var 'node' to be the root of the tree
+        // NOTE: node cannot be 'const' here b/c its value will be constantly edited via the while loop
+        let node = this.root;
+
+        // recursive is not needed here, while will suffice
+        // recursive(data) {
+            while (node.left !== null) {
+                node = node.left
+                // recursive(node);
+                console.log('Trigger');
+            }
+            return node.data;
+        // }
+    }
+
+    findMin() {
+        let current = this.root;
+        while (current.left !== null) {
+          current = current.left;
+        }
+        return current.data;
+      }
 }
 
 const newTree = new BST;
 newTree.add(100);
 newTree.add(99);
-newTree.add(98)
-console.log(newTree);
+newTree.add(98);
+newTree.add(1);
+console.log(newTree.minValue());
+console.log(newTree.findMin());
+// both return undefined?
+console.log(newTree.root);
