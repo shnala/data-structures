@@ -23,6 +23,10 @@ class BST {
     }
     // method for adding new nodes
 
+    getRoot() {
+        return this.root;
+    }
+
     add(data) {
         const node = this.root;
 
@@ -86,7 +90,7 @@ class BST {
             while (node.left !== null) {
                 node = node.left
                 // recursive(node);
-                console.log('Trigger');
+                // console.log(`${node.data}`);
             }
             return node.data;
         // }
@@ -102,12 +106,12 @@ class BST {
 
         return current.data;
     }
-    
+
     // NOTE: IT DIDN'T WORK BECAUSE YOU DIDN'T PUT 'RETURN' IN THE ELSE STATEMENT. 
     // TODO: Why was 'return' seemingly irrelevant in the add() method, but important for functionality here? Removing 'return' from the call to the recursive function in add() made no impact on the result, however in this instance, removing 'return' caused this helper method to not work at all, instead returning 'undefined'
     findMinNode(node) {
         if (node.left === null) {
-            return node.data;
+            return node;
         } else { 
             return this.findMinNode(node.left);
         }
@@ -115,10 +119,33 @@ class BST {
 
     findMaxNode(node) {
         if (node.right === null) {
-            return node.data;
+            return node;
         } else {
             return this.findMaxNode(node.right);
         };
+    }
+
+    // method for returning an array representing the in-order traversement of the binary tree, i.e. from left to root to right
+    // move to furthest left position
+    //
+    inOrder() {
+        let stack = [];
+        // initialize node to start at left most part of tree, i.e. min
+        // let node = this.findMinNode(this.root);
+
+        //TODO: Why don't you get duplicates when using recursion? How, for instance, does node 
+        function traverse(node) {
+            if (node.left) {
+                traverse(node.left)
+            }
+
+            stack.push(node.data);
+            if (node.right) {
+                traverse(node.right)
+            }
+        };
+        traverse(this.root);
+        return stack;
     }
 }
 
@@ -142,9 +169,10 @@ newTree.add(27);
 //    5   9  17
 // console.log(newTree.minValue());
 // console.log(newTree.findMin());
-console.log(newTree.maxValue());
+// console.log(newTree.maxValue());
 
 // console.log(newTree.findMinNode(newTree.root));
 // console.log(newTree.findMaxNode(newTree.root));
 
 // console.log(newTree.root);
+console.log(newTree.inOrder());
