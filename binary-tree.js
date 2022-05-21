@@ -133,14 +133,18 @@ class BST {
         // initialize node to start at left most part of tree, i.e. min
         // let node = this.findMinNode(this.root);
 
-        //TODO: Why don't you get duplicates when using recursion? How, for instance, does node 
+        //TODO: Why don't you get duplicates when using recursion? How, once the left side of the tree has been traversed, does the recursion know that the left side has been traversed and not to instantly trigger the first if (node.left) statement again, since we are calling traverse(this.root) at the end?
+        // traverse(this.root) doesn't get called again; once it has been complete, it indicates the recursion loop has finished, and the function will proceed to the next line which returns the stack.
         function traverse(node) {
             if (node.left) {
+                console.log(`node.left is ${node.left}`);
                 traverse(node.left)
             }
 
+            console.log(`pushing ${node.data}`);
             stack.push(node.data);
             if (node.right) {
+                console.log(`node.right is ${node.right}`);
                 traverse(node.right)
             }
         };
@@ -171,8 +175,14 @@ newTree.add(27);
 // console.log(newTree.findMin());
 // console.log(newTree.maxValue());
 
-// console.log(newTree.findMinNode(newTree.root));
+// console.log(newTree.findMinNode(newTree.root).right);
 // console.log(newTree.findMaxNode(newTree.root));
 
 // console.log(newTree.root);
-console.log(newTree.inOrder());
+// console.log(newTree.inOrder());
+
+// traverse() method walkthrough:
+// traverse(this.root) is called and intiates recursion loop
+// if this.root has a node on the left (node.left), then we will call traverse() again but feed it node.left. This will cause traverse() to go to the furthest left node.
+// once (!node.left), we will push the current node to stack. The current node is the min value of the tree.
+// The next line of code will check for a node on the right. In our example, there will be no node.right. How do we move back up to the node above 5, which is 7?
